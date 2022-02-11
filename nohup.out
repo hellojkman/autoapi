@@ -186,3 +186,7 @@ Emitted 'error' event on Server instance at:
 [0mGET /api/park/number/car/car?car_id=3 [36m304[0m 1.000 ms - -[0m
 [0mGET /api/park/number/carBody [32m200[0m 0.909 ms - 30[0m
 [0mPOST /api/park/number/carBody [32m200[0m 0.836 ms - 27[0m
+grep
+3000 Port : 서버 실행 중
+grep
+3000 Port : 서버 실행 중
