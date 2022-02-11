@@ -1,7 +1,8 @@
 const express =require("express");
 const bodyParser = require('body-parser');
-
 const app = express();
+const { MongoClient } = require('mongodb');
+const uri = "mongodb+srv://root:B3iwT5aI44WFq7Wn@cluster0.ymswf.mongodb.net/myFirstDatabase?retryWrites=true&w=m    ajority";
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : false}));
@@ -27,7 +28,7 @@ const park_area = 10
 //simple api
 
 app.get("/Hello", (req, res) => {
-  res.json({Total:park_area});
+  res.json({status:"OK", message:"OK", totalData:1, total:park_area});
 })
 
 
@@ -70,13 +71,9 @@ app.get("/api/park/number/car/car", (req, res) => {
     res.json({status:"ok", "이 주차장의 최대 주차 대수" : park_area})
   var Free_space = park_area - car
   console.log(Free_space)
-  res.json({Total:park_area, Free_space:Free_space});
+  res.json({status:"OK", message:"OK", totalData:1, placecount:[{total:park_area, Free_space:Free_space}]});
+
 })
-
-
-
-
-
 
 //post, request body, response 0
 
@@ -85,7 +82,25 @@ app.post("/api/park/number/carBody", (req, res) => {
     if(car_id > park_area)
     res.json({status:"ok", "이 주차장의 최대 주차 대수" : park_area})
   var Free_space = park_area - car_id
-  res.json({Total:park_area, Feee_space:Free_space});
+  res.json({status:"OK", message:"OK", totalData:1, placecount:[{total:park_area, Feee_space:Free_space}]});
 })
+
+//mongo
+
+app.get("/api/mongo", (req, res) => {
+  MongoClient.connect(uri, function(err, db) {
+    if (err) throw err;
+    let dbo = db.db("parkdb");
+    dbo.collection("park_area").find().toArray(function(err,result) {
+      if (err) throw err;
+      console.log(result);
+      res.json({status:"ok", message:"ok", result:result});
+      console.log(result);
+      db.close();
+		});
+	});
+})
+
+
 
 module.exports = app;

@@ -1,10 +1,15 @@
 #!/bin/bash
+if [ "$1" = "status" ]
+then
+	ps -ef | grep 'node'
+fi
+
+node=$(ps -ef | grep 'node app.js')
+first1=$(echo ${node} | cut -d " " -f2)
+first2=$(echo ${node} | cut -d " " -f8)
 
 if [ "$1" = "start" ]
 then
-	node=$(ps -ef | grep 'node app.js')
-	first1=$(echo ${node} | cut -d " " -f2)
-	first2=$(echo ${node} | cut -d " " -f8)
 	if [ $first2 == "node" ]
 	then
 		for var in $first1
@@ -26,10 +31,6 @@ then
 fi
 if [ "$1" = "stop" ]
 then
-
-	node=$(ps -ef | grep 'node app.js')
-	first1=$(echo ${node} | cut -d " " -f2)
-	first2=$(echo ${node} | cut -d " " -f8)
 	if [ $first2 == "node" ]
 	then
 		for var in $first1
