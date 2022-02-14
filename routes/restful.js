@@ -27,9 +27,9 @@ const park_area = 10
 
 //simple api
 
-app.get("/Hello", (req, res) => {
-  res.json({status:"OK", message:"OK", totalData:1, total:park_area});
-})
+//app.get("/Hello", (req, res) => {
+//  res.json({status:"OK", message:"OK", totalData:1, total:park_area});
+//})
 
 
 //path parameter, request parm 0, response 0
@@ -62,6 +62,12 @@ app.get("/api/park/number/:car_id", (req, res) => {
   res.json({Total:park_area, Free_space:Free_space});
 })
 
+//simple api
+
+app.get("/Hello", (req, res) => {
+  res.json({status:"OK", message:"OK", totalData:1, total:park_area});
+})
+
 // Query parameter, request param O, response O
 
 app.get("/api/park/number/car/car", (req, res) => {
@@ -82,7 +88,7 @@ app.post("/api/park/number/carBody", (req, res) => {
     if(car_id > park_area)
     res.json({status:"ok", "이 주차장의 최대 주차 대수" : park_area})
   var Free_space = park_area - car_id
-  res.json({status:"OK", message:"OK", totalData:1, placecount:[{total:park_area, Feee_space:Free_space}]});
+  res.json({status:"OK", message:"OK", totalData:1, placecount:[{total:park_area, Free_space:Free_space}]});
 })
 
 //mongo
